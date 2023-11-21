@@ -1,0 +1,971 @@
+
+Assignment 1
+AIM: Perform encryption and decryption using Caesar cipher Algorithm.  
+Theory:
+The Caesar cipher is the simplest and oldest method of cryptography. The Caesar cipher method is based on a mono-alphabetic cipher and is also called a shift cipher or additive cipher.Julius Caesar used the shift cipher (additive cipher) technique to communicate with his officers.For this reason, the shift cipher technique is called the Caesar cipher.The Caesar cipher is a kind of replacement (substitution) cipher,where all letter of plain text is replaced by another letter.
+Let's take an example to understand the Caesar cipher, suppose we are shifting with 1, then A will be replaced by B, B will be replaced by C, C will be replaced by D, D will be replaced by C, and this process continues until the entire plain text is finished.
+Caesar ciphers is a weak method of cryptography. It can be easily hacked. It means the message encrypted by this method can be easily decrypted.
+Rules for the Caesar Cipher:
+⦁	Choose a number between 1 and 25. This will be your “shift” value.
+⦁	Write down the letters of the alphabet in order, from A to Z.
+⦁	Shift each letter of the alphabet by the “shift” value. For example, if the shift value is 3, A would become D, B would become E, C would become F, and so on.
+⦁	Encrypt your message by replacing each letter with the corresponding shifted letter. For example, if the shift value is 3, the word “hello” would become “khoor”.
+⦁	To decrypt the message, simply reverse the process by shifting each letter back by the same amount. For example, if the shift value is 3, the encrypted message “khoor” would become “hello”.
+Algorithm for Caesar Cipher: 
+⦁	Choose a shift value between 1 and 25.
+⦁	Write down the alphabet in order from A to Z.
+⦁	Create a new alphabet by shifting each letter of the original alphabet by the shift value. For example, if the shift value is 3, the new alphabet would be:
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+D E F G H I J K L M N O P Q R S T U V W X Y Z A B C
+⦁	Replace each letter of the message with the corresponding letter from the new alphabet. For example, if the shift value is 3, the word “hello” would become “khoor”.
+⦁	To decrypt the message, shift each letter back by the same amount. For example, if the shift value is 3, the encrypted message “khoor” would become “hello”.
+ 
+Advantages:
+⦁	Easy to implement and use thus, making suitable for beginners to learn about encryption.
+⦁	Can be physically implemented, such as with a set of rotating disks or a set of cards, known as a scytale, which can be useful in certain situations.
+⦁	Requires only a small set of pre-shared information.
+⦁	Can be modified easily to create a more secure variant, such as by using a multiple shift values or keywords.
+Disadvantages:
+⦁	It is not secure against modern decryption methods.
+⦁	Vulnerable to known-plaintext attacks, where an attacker has access to both the encrypted and unencrypted versions of the same messages.
+⦁	The small number of possible keys means that an attacker can easily try all possible keys until the correct one is found, making it vulnerable to a brute force attack.
+⦁	It is not suitable for long text encryption as it would be easy to crack.
+⦁	It is not suitable for secure communication as it is easily broken.
+⦁	Does not provide confidentiality, integrity, and authenticity in a message.
+Code: 
+import java.util.Scanner;
+public class Assignment1E{ public static void main(String...s){
+String message, encryptedMessage = ""; int key;
+char ch;
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter a message: "); 
+message = sc.nextLine(); 
+System.out.println("Enter key: ");
+key = sc.nextInt();
+
+for(int i = 0; i < message.length();++i)
+{ ch = message.charAt(i); if(ch >= 'a' && ch <=
+'z'){ ch = (char)(ch + key); if(ch > 'z'){
+ch = (char)(ch - 'z' + 'a' - 1);}encryptedMessage += ch;}
+else if(ch >= 'A' && ch <= 'Z'){ ch = (char)(ch + key);
+if(ch > 'Z'){
+ch = (char)(ch - 'Z' + 'A' - 1);
+}encryptedMessage += ch;}
+else {encryptedMessage += ch;}}
+System.out.println("Encrypted Message = " + encryptedMessage);}}
+Assignment 2
+Aim: To Perform encryption and decryption using Play Fair Cipher.
+Theory:
+Playfair cipher is proposed by Charles Whetstone in 1889. But it was named for one of his friends Lord Lyon Playfair because he popularized its uses. It is the most popular symmetric encryption technique that falls under the substitution cipher. It is an encoding procedure that enciphers more than one letter at a time.
+Playfair cipher is an encryption algorithm to encrypt or encode a message. It is the same as a traditional cipher. The only difference is that it encrypts a digraph (a pair of two letters) instead of a single letter.
+It initially creates a key-table of 5*5 matrix. The matrix contains alphabets that act as the key for encryption of the plaintext. Note that any alphabet should not be repeated. Another point to note that there are 26 alphabets and we have only 25 blocks to put a letter inside it. Therefore, one letter is excess so, a letter will be omitted (usually J) from the matrix. Nevertheless, the plaintext contains J, then J is replaced by I. It means treat I and J as the same letter, accordingly.
+Since Playfair cipher encrypts the message digraph by digraph. Therefore, the Playfair cipher is an example of a digraph substitution cipher.
+Advantages of Playfair Cipher
+⦁	Diverse ciphertext if we scrutinize the Algorithm, we can notice at every Stage we are getting diverse ciphertext, thus more trouble to cryptanalyst.
+⦁	Brute force attack does not affect it.
+⦁	Cryptanalyze (the process of decoding cipher without knowing key) is not possible.
+⦁	Overcomes the limitation of simple Playfair square cipher.
+⦁	Easy to perform the substitution.
+Limitations of Playfair Cipher
+⦁	Only 25 alphabets are supported.
+⦁	It does not support numeric characters.
+⦁	Only either upper cases or lower cases are supported.
+⦁	The use of special characters (such as blank space, newline, punctuations, etc.) is prohibited.
+⦁	It does not support other languages, except English.
+⦁	Encryption of media files is also not supported.
+Playfair Cipher Encryption Rules
+1. First, split the plaintext into digraphs (pair of two letters). If the plaintext has the odd number of letters, append the letter Z at the end of the plaintext. It makes the plaintext of even for example, the plaintext MANGO has five letters. So, it is not possible to make a digraph. Since, we will append a letter Z at the end of the plaintext, i.e. MANGOZ.
+2. After that, break the plaintext into digraphs (pair of two letters). If any letter appears twice (side by side), put X at the place of the second occurrence. Suppose, the plaintext is COMMUNICATE then its digraph becomes CO MX MU NI CA TE. Similarly, the digraph for the plaintext JAZZ will be JA ZX ZX, and for plaintext GREET, the digraph will be GR EX ET.
+3. To determine the cipher (encryption) text, first, build a 5*5 key-matrix or key-table and filled it with the letters of alphabets, as directed below:
+⦁	Fill the first row (left to right) with the letters of the given keyword (ATHENS). If the keyword has duplicate letters (if any) avoid them. It means a letter will be considered only once. After that, fill the remaining letters in alphabetical order. Let's create a 5*5 key-matrix for the keyword ATHENS.
+ 
+Note that in the above matrix any letter is not repeated. The letters in the first row (in green color) represent the keyword and the remaining letters sets in alphabetical order.
+4. There may be the following three conditions:
+⦁	If a pair of letters (digraph) appears in the same row
+In this case, replace each letter of the digraph with the letters immediately to their right. If there is no letter to the right, consider the first letter of the same row as the right letter. Suppose, Z is a letter whose right letter is required, in such case, T will be right to Z.
+ 
+⦁	If a pair of letters (digraph) appears in the same column
+In this case, replace each letter of the digraph with the letters immediately below them. If there is no letter below, wrap around to the top of the same column. Suppose, W is a letter whose below letter is required, in such case, V will be below W.
+ 
+
+iii) If a pair of letters (digraph) appears in a different row and different column
+In this case, select a 3*3 matrix from a 5*5 matrix such that pair of letters appear in the 3*3 matrix. Since they occupy two opposite corners of a square within the matrix. The other corner will be a cipher for the given digraph.
+In other words, we can also say that intersection of H and Y will be the cipher for the first letter and suppose, a digraph is HY and we have to find a cipher for it. We observe that both H and Y are placed in different rows and different columns. In such cases, we have to select a 3*3 matrix in such a way that both H and Y appear in the 3*3 matrix (highlighted with yellow color). Now, we will consider only the selected matrix to find the cipher.
+ 
+Now to find the cipher for HY, we will consider the diagonal opposite to HY, i.e. LU. Therefore, the cipher for H will be L, and the cipher for Y will be U.
+ 
+Code: 
+package course;
+import java.util.Arrays;
+import java.util.Scanner;
+public class demo {
+private static char[][] keySquare;
+private static void generateKeySquare(String key) {
+key = key.replace("J", "I").toUpperCase();
+key = key.replaceAll("[^A-Z]", "");
+String alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+String combinedKey = key + alphabet;
+combinedKey = combinedKey.replaceAll("(.)(?=.*\\1)", ""); // Remove duplicate characters
+keySquare = new char[5][5];
+int rowIndex = 0;
+int colIndex = 0;
+for (char ch : combinedKey.toCharArray()) {
+keySquare[rowIndex][colIndex] = ch;
+colIndex++;
+if (colIndex == 5) {
+colIndex = 0;
+rowIndex++;
+}
+}
+}
+private static String preparePlainText(String plainText) {
+plainText = plainText.replace("J", "I").toUpperCase();
+plainText = plainText.replaceAll("[^A-Z]", "");
+StringBuilder preparedText = new StringBuilder(plainText);
+for (int i = 0; i < preparedText.length(); i += 2) {
+if (i + 1 == preparedText.length()) {
+preparedText.append('X');
+} else if (preparedText.charAt(i) == preparedText.charAt(i + 1)) {
+preparedText.insert(i + 1, 'X');
+}
+}
+return preparedText.toString();
+}
+private static String encrypt(String plainText) {
+StringBuilder encryptedText = new StringBuilder();
+for (int i = 0; i < plainText.length(); i += 2) {
+char ch1 = plainText.charAt(i);
+char ch2 = plainText.charAt(i + 1);
+int row1 = -1, col1 = -1, row2 = -1, col2 = -1;
+for (int row = 0; row < 5; row++) {
+for (int col = 0; col < 5; col++) {
+if (keySquare[row][col] == ch1) {
+row1 = row;
+col1 = col;
+}
+if (keySquare[row][col] == ch2) {
+row2 = row;
+col2 = col;
+}
+}
+}
+char encryptedCh1, encryptedCh2;
+if (row1 == row2) {
+encryptedCh1 = keySquare[row1][(col1 + 1) % 5];
+encryptedCh2 = keySquare[row2][(col2 + 1) % 5];
+} else if (col1 == col2) {
+encryptedCh1 = keySquare[(row1 + 1) % 5][col1];
+encryptedCh2 = keySquare[(row2 + 1) % 5][col2];
+} else {
+encryptedCh1 = keySquare[row1][col2];
+encryptedCh2 = keySquare[row2][col1];
+}
+encryptedText.append(encryptedCh1).append(encryptedCh2);
+}
+return encryptedText.toString();
+}
+private static String decrypt(String encryptedText) {
+StringBuilder decryptedText = new StringBuilder();
+for (int i = 0; i < encryptedText.length(); i += 2) {
+char ch1 = encryptedText.charAt(i);
+char ch2 = encryptedText.charAt(i + 1);
+int row1 = -1, col1 = -1, row2 = -1, col2 = -1;
+for (int row = 0; row < 5; row++) {
+for (int col = 0; col < 5; col++) {
+if (keySquare[row][col] == ch1) {
+row1 = row;
+col1 = col;
+}
+if (keySquare[row][col] == ch2) {
+row2 = row;
+col2 = col;
+}
+}
+}
+char decryptedCh1, decryptedCh2;
+if (row1 == row2) {
+decryptedCh1 = keySquare[row1][(col1 + 4) % 5];
+decryptedCh2 = keySquare[row2][(col2 + 4) % 5];
+} else if (col1 == col2) {
+decryptedCh1 = keySquare[(row1 + 4) % 5][col1];
+decryptedCh2 = keySquare[(row2 + 4) % 5][col2];
+} else {
+decryptedCh1 = keySquare[row1][col2];
+decryptedCh2 = keySquare[row2][col1];
+}
+decryptedText.append(decryptedCh1).append(decryptedCh2);
+}
+return decryptedText.toString();
+}
+public static void main(String[] args) {
+String key = "KEYWORD";
+generateKeySquare(key);
+Scanner scan = new Scanner(System.in); // Take input from user using scanner class
+String plainText = scan.nextLine();
+String preparedText = preparePlainText(plainText);
+String encryptedText = encrypt(preparedText);
+String decryptedText = decrypt(encryptedText);
+System.out.println("Key Square:");
+for (char[] row : keySquare) {
+System.out.println(Arrays.toString(row));
+}
+System.out.println("\nPlain Text: " + plainText);
+System.out.println("Prepared Text: " + preparedText);
+System.out.println("Encrypted Text: " + encryptedText);
+System.out.println("Decrypted Text: " + decryptedText);
+}
+}
+
+Output:
+ 
+
+
+Assignment 3
+AIM: Perform encryption and decryption using Rail Fence Technique. (Row Transposition Techniques)
+import java.util.Arrays;
+Theory:
+The Rail Fence Technique is a simple transposition cipher that encrypts a message by rearranging the order of the letters in a zigzag pattern. It is one of the oldest and simplest encryption techniques known, and is relatively easy to break, but it can still be useful for simple communication where a high level of security is not required.
+To encrypt a message using the Rail Fence Technique, you will need to choose a number of rails. The most common is two rails, but you can use more or less depending on the desired level of security.
+Once you have chosen a number of rails, write the message in a zigzag pattern, starting at the top left rail and moving down to the bottom rail, then back up to the top rail, and so on. If you reach the end of a rail before you finish writing the message, simply wrap around to the next rail.
+Once you have written the entire message in this zigzag pattern, read off the ciphertext by reading each rail from left to right, in order.
+Encryption Algorithm:
+⦁	Key Setup:
+⦁	Determine the number of rails or lines to use for the zigzag pattern. This is typically a positive integer.
+⦁	Create the rails by setting up as many empty lines as specified by the key.
+⦁	Text Preparation:
+⦁	Remove any spaces and punctuation from the plaintext. You may also choose to convert the text to uppercase to simplify the process.
+⦁	Encryption:
+⦁	Start at the top rail (rail 1) and write the first letter of the plaintext.
+⦁	Move down to the next rail (rail 2) and write the second letter of the plaintext.
+⦁	Continue moving down in a zigzag pattern, placing each letter of the plaintext on the appropriate rail.
+⦁	When you reach the bottom rail (the last rail), reverse direction and start moving upward.
+⦁	Repeat this process until you have placed all the letters of the plaintext on the rails.
+⦁	Ciphertext Formation:
+⦁	Read the letters from the rails in order, starting from the top rail to the bottom rail.
+⦁	This forms the ciphertext.
+Decryption Algorithm:
+⦁	Key Setup:
+⦁	Determine the number of rails or lines used for encryption (the same value as used in encryption).
+
+⦁	Text Preparation:
+⦁	Remove any spaces and punctuation from the ciphertext. You may also choose to convert the text to uppercase to simplify the process.
+⦁	Decryption:
+⦁	Create an empty rail fence with the same number of rails as in the encryption process.
+⦁	Filling the Rails:
+⦁	Start at the top rail (rail 1) and place the first letter of the ciphertext.
+⦁	Move down to the next rail (rail 2) and place the next letter of the ciphertext.
+⦁	Continue moving down in a zigzag pattern, placing each letter of the ciphertext on the appropriate rail.
+⦁	When you reach the bottom rail (the last rail), reverse direction and start moving upward.
+⦁	Repeat this process until you have placed all the letters of the ciphertext on the rails.
+⦁	Recovery of Plaintext:
+⦁	Read the letters from the rails in the same zigzag pattern used during encryption.
+⦁	This forms the plaintext.
+ 
+Advantages:
+⦁	Ease of Implementation: The Rail Fence Cipher is straightforward to understand and implement, making it accessible to beginners and those new to cryptography. It doesn't require complex mathematical operations or special equipment.
+⦁	Speed: Both encryption and decryption in the Rail Fence Cipher can be performed quickly since they involve simple rearrangements of letters. This makes it suitable for basic and rapid encryption needs.\
+⦁	Visual Appeal: The encryption and decryption processes in the Rail Fence Cipher can be visually appealing, as they result in a zigzag pattern. This can make it engaging for educational or recreational purposes.
+Disadvantages:
+⦁	Weak Security: The Rail Fence Cipher provides very weak security and is not suitable for protecting sensitive information against modern cryptographic attacks. It can be easily broken using techniques such as frequency analysis, guessing, or manual decryption.
+⦁	Lack of Key: The Rail Fence Cipher lacks a cryptographic key, which means that anyone with knowledge of the algorithm can decrypt the message without requiring a secret key. This lack of key management makes it unsuitable for secure communication.
+⦁	Limited Applicability: Due to its simplicity and weak security, the Rail Fence Cipher is not suitable for most practical encryption scenarios. It may be suitable for simple puzzles, games, or teaching cryptography concepts but should not be used for secure communication.
+⦁	Susceptible to Known-Plaintext Attack: Since the pattern of the rails remains the same for a given number of rails, if an attacker has knowledge of any part of the plaintext and its corresponding ciphertext, they can easily deduce the number of rails and decrypt the entire message.
+CODE:
+class RailFence {
+    // function to encrypt a message
+    public static String encryptRailFence(String text,  int key)
+    {
+        // create the matrix to cipher plain text
+        // key = rows , length(text) = columns
+        char[][] rail = new char[key][text.length()];
+        // filling the rail matrix to distinguish filled
+        // spaces from blank ones
+        for (int i = 0; i < key; i++)
+            Arrays.fill(rail[i], '\n');
+        boolean dirDown = false;
+        int row = 0, col = 0;
+        for (int i = 0; i < text.length(); i++) {
+            // check the direction of flow
+            // reverse the direction if we've just
+            // filled the top or bottom rail
+            if (row == 0 || row == key - 1)
+                dirDown = !dirDown;
+            // fill the corresponding alphabet
+            rail[row][col++] = text.charAt(i);
+            // find the next row using direction flag
+            if (dirDown)
+                row++;
+            else
+                row--;
+        }
+        // now we can construct the cipher using the rail
+        // matrix
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < key; i++)
+            for (int j = 0; j < text.length(); j++)
+                if (rail[i][j] != '\n')
+                    result.append(rail[i][j]);
+        return result.toString();
+    }
+    // This function receives cipher-text and key
+    // and returns the original text after decryption
+    public static String decryptRailFence(String cipher, int key)
+    {
+        // create the matrix to cipher plain text
+        // key = rows , length(text) = columns
+        char[][] rail = new char[key][cipher.length()];
+        // filling the rail matrix to distinguish filled
+        // spaces from blank ones
+        for (int i = 0; i < key; i++)
+            Arrays.fill(rail[i], '\n');
+        // to find the direction
+        boolean dirDown = true;
+        int row = 0, col = 0;
+        // mark the places with '*'
+        for (int i = 0; i < cipher.length(); i++) {
+            // check the direction of flow
+            if (row == 0)
+                dirDown = true;
+            if (row == key - 1)
+                dirDown = false;
+            // place the marker
+            rail[row][col++] = '*';
+            // find the next row using direction flag
+            if (dirDown)
+                row++;
+            else
+                row--;
+        }
+        // now we can construct the fill the rail matrix
+        int index = 0;
+        for (int i = 0; i < key; i++)
+            for (int j = 0; j < cipher.length(); j++)
+                if (rail[i][j] == '*'
+                    && index < cipher.length())
+                    rail[i][j] = cipher.charAt(index++);
+        StringBuilder result = new StringBuilder();
+        row = 0;
+        col = 0;
+        for (int i = 0; i < cipher.length(); i++) {
+            // check the direction of flow
+            if (row == 0)
+                dirDown = true;
+            if (row == key - 1)
+                dirDown = false;
+            if (rail[row][col] != '*')
+                result.append(rail[row][col++]);
+            // find the next row using direction flag
+            if (dirDown)
+                row++;
+            else
+                row--;
+        }
+        return result.toString();
+    }
+    public static void main(String[] args)
+    {
+        // Encryption
+        System.out.println("Encrypted Message: ");
+        System.out.println(encryptRailFence("attack at once", 2));
+        System.out.println(  encryptRailFence("GeeksforGeeks ", 3));
+        System.out.println(encryptRailFence("defend the east wall", 3));
+        // Now decryption of the same cipher-text
+        System.out.println("\nDecrypted Message: ");
+        System.out.println(decryptRailFence("atc toctaka ne", 2));
+        System.out.println(decryptRailFence("GsGsekfrek eoe", 3));
+        System.out.println(decryptRailFence("dnhaweedtees alf  tl", 3));
+    }
+}
+OUTPUT:
+atc toctaka ne
+GsGsekfrek eoe
+dnhaweedtees alf  tl
+
+Decrypted Message: 
+attack at once
+GeeksforGeeks 
+defend the east wall
+Assignment 4
+AIM: Perform encryption and decryption using (Columnar Transposition Techniques)
+Theory: 
+Columnar transposition techniques are a type of transposition cipher that encrypts a message by rearranging the order of the letters in columns. The columns are then read in a different order to produce the ciphertext.
+Columnar transposition techniques can be used with any number of columns, but the more columns you use, the more difficult the cipher will be to break. However, even with a large number of columns, columnar transposition techniques are still relatively weak ciphers, and can be broken by a skilled cryptanalyst.
+Columnar transposition techniques can be made more difficult to break by using a longer keyword, or by using a keyword with repeated letters. However, even the most complex columnar transposition techniques can be broken by a skilled cryptanalyst.
+Here are some additional techniques that can be used to improve the security of columnar transposition techniques:
+⦁	Use a random number generator to generate the keyword.
+⦁	Use a keyword that is not related to the plaintext message.
+⦁	Use a keyword that is long enough to make it difficult to guess.
+⦁	Use a keyword with repeated letters.
+⦁	Use a combination of columnar transposition and other encryption techniques, such as substitution or polyalphabetic substitution.
+Despite their weaknesses, columnar transposition techniques are still useful for simple communication where a high level of security is not required. For example, columnar transposition techniques can be used to encrypt messages on social media or in email.
+Encryption:
+In a transposition cipher, the order of the alphabets is re-arranged to obtain the cipher-text.
+⦁	The message is written out in rows of a fixed length, and then read out again column by column, and the columns are chosen in some scrambled order.
+⦁	Width of the rows and the permutation of the columns are usually defined by a keyword.
+⦁	For example, the word HACK is of length 4 (so the rows are of length 4), and the permutation is defined by the alphabetical order of the letters in the keyword. In this case, the order would be “3 1 2 4”.
+⦁	Any spare spaces are filled with nulls or left blank or placed by a character (Example: _).
+⦁	Finally, the message is read off in columns, in the order specified by the keyword.
+ 
+Decryption: 
+⦁	To decipher it, the recipient has to work out the column lengths by dividing the message length by the key length.
+⦁	Then, write the message out in columns again, then re-order the columns by reforming the key word.
+Advantages of columnar transposition techniques:
+⦁	Simple to implement and understand.
+⦁	Can be used with any number of columns.
+⦁	Can be made more difficult to break by using a longer keyword or a keyword with repeated letters.
+⦁	Can be combined with other encryption techniques, such as substitution or polyalphabetic substitution, to improve security.
+Disadvantages of columnar transposition techniques:
+⦁	Relatively weak ciphers that can be broken by a skilled cryptanalyst.
+⦁	Can be time-consuming to encrypt and decrypt long messages.
+⦁	Errors in encryption or decryption can make the message unreadable.
+Code: 
+public class ColumnarTranspositionCipher {
+    public static String encrypt(String message, String keyword) {
+        // Create a matrix to store the plaintext message.
+        int keyLength = keyword.length();
+        char[][] matrix = new char[keyLength][message.length()];
+
+        // Write the plaintext message to the matrix.
+        int row = 0;
+        int col = 0;
+        for (int i = 0; i < message.length(); i++) {
+            matrix[row][col] = message.charAt(i);
+            row++;
+            if (row == keyLength) {
+                row = 0;
+                col++;
+            }
+        }
+
+        // Order the columns by the alphabetical order of the keyword.
+        int[] columnOrder = new int[keyLength];
+        for (int i = 0; i < keyLength; i++) {
+            columnOrder[i] = i;
+        }
+
+        // Sort the column order.
+        Arrays.sort(columnOrder, (o1, o2) -> Character.compare(keyword.charAt(o1), keyword.charAt(o2)));
+
+        // Read the ciphertext off column by column, in the order specified by the column order.
+        String ciphertext = "";
+        for (int i = 0; i < keyLength; i++) {
+            for (int j = 0; j < message.length(); j++) {
+                ciphertext += matrix[j][columnOrder[i]];
+            }
+        }
+
+        return ciphertext;
+    }
+
+    public static String decrypt(String ciphertext, String keyword) {
+        // Create a matrix to store the ciphertext.
+        int keyLength = keyword.length();
+        char[][] matrix = new char[keyLength][ciphertext.length()];
+
+        // Order the columns by the alphabetical order of the keyword.
+        int[] columnOrder = new int[keyLength];
+        for (int i = 0; i < keyLength; i++) {
+            columnOrder[i] = i;
+        }
+
+        // Sort the column order.
+        Arrays.sort(columnOrder, (o1, o2) -> Character.compare(keyword.charAt(o1), keyword.charAt(o2)));
+
+        // Write the ciphertext to the matrix, in the order specified by the column order.
+        int row = 0;
+        int col = 0;
+        for (int i = 0; i < ciphertext.length(); i++) {
+            matrix[row][columnOrder[col]] = ciphertext.charAt(i);
+            col++;
+            if (col == keyLength) {
+                col = 0;
+                row++;
+            }
+        }
+
+        // Read the plaintext off row by row, from left to right.
+        String plaintext = "";
+        for (int i = 0; i < matrix[0].length; i++) {
+            for (int j = 0; j < keyLength; j++) {
+                plaintext += matrix[j][i];
+            }
+        }
+
+        return plaintext;
+    }
+
+    public static void main(String[] args) {
+        String message = "SECRET MESSAGE";
+        String keyword = "ZEBRAS";
+
+        String ciphertext = encrypt(message, keyword);
+        System.out.println("Ciphertext: " + ciphertext);
+
+        String plaintext = decrypt(ciphertext, keyword);
+        System.out.println("Plaintext: " + plaintext);
+    }
+}
+Output: 
+Ciphertext: SECMRETESSAGE
+Plaintext: SECRET MESSAGE
+
+
+
+
+
+
+
+
+
+Assignment 5
+Aim: Perform encryption and decryption using One Time Pad Algorithm.
+Theory: 
+One Time Pad algorithm (OTP) is a symmetric key type algorithm. In the encryption process, this algorithm uses a stream cipher derived from the XOR result between the plaintext bit and the key bit. 
+It is the only available algorithm that is unbreakable (completely secure). It is one of the Substitution techniques which converts plain text into ciphertext
+The two requirements for the One-Time pad are
+⦁	The key should be randomly generated & should be as long as the size of the message.
+⦁	The key is to be used to encrypt and decrypt a single message, and then it is discarded.
+So, encrypting every new message requires a new key of the same length as the new message in one-time pad. The ciphertext generated by the One-Time pad is random, so it does not have any statistical relation with the plain text.
+ 
+Examples:
+Input: Message = HELLO, Key = MONEY, Output: Cipher = TSYPM, 
+Explanation: Part 1: Plain text to Ciphertext  
+Plain text = H E L L O  7 4 11 11 14         
+Key = M O N E Y  12 14 13 4 24         
+Plain text + key  19 18 24 15 38  19 18 24 15 12 (because 38 – 26 = 12)         
+Cipher Text  T S Y P M  
+
+
+   
+Part 2: Ciphertext to Message         
+Cipher Text = 19 18 24 15 12  T S Y P M           
+Key = M O N E Y  12 14 13 4 24         
+Cipher text - key  7 4 11 11 -12  7 4 11 11 14 (-12+26 = 14)       
+Plain text = 7 4 11 11 14  H E L L O 
+
+Security of One-Time Pad
+⦁	If any way cryptanalyst finds these two keys using which two plaintext are produced but if the key was produced randomly, then the cryptanalyst cannot find which key is more likely than the other. In fact, for any plaintext as the size of ciphertext, a key exists that produces that plaintext.
+⦁	So if a cryptanalyst tries the brute force attack(try using all possible keys), he would end up with many legitimate plaintexts, with no way of knowing which plaintext is legitimate. Therefore, the code is unbreakable.
+⦁	The security of the one-time pad entirely depends on the randomness of the key. If the characters of the key are truly random, then the characters of the ciphertext will be truly random. Thus, there are no patterns or regularities that a cryptanalyst can use to attack the ciphertext.
+
+Advantages
+⦁	One-Time Pad is the only algorithm that is truly unbreakable and can be used for low-bandwidth channels requiring very high security (ex. for military uses).
+Disadvantages
+⦁	There is the practical problem of making large quantities of random keys. Any heavily used system might require millions of random characters on a regular basis.
+⦁	For every message to be sent, a key of equal length is needed by both sender and receiver. Thus, a mammoth key distribution problem exists.
+
+Code:
+package course;
+import java.util.Random;
+import java.util.Scanner;
+public class OneTimePad {
+// Function to generate a random key (pad) of the same length as the plaintext
+public static String generateRandomKey(int length) {
+Random random = new Random();
+StringBuilder keyBuilder = new StringBuilder();
+for (int i = 0; i < length; i++) {
+char randomChar = (char) (random.nextInt(26) + 'A'); // Generates a random uppercase letter
+keyBuilder.append(randomChar);
+}
+return keyBuilder.toString();
+}
+// Function to perform one-time pad encryption
+public static String encrypt(String plaintext, String key) {
+if (plaintext.length() != key.length()) {
+throw new IllegalArgumentException("Plaintext and key must have the same length.");
+}
+StringBuilder ciphertextBuilder = new StringBuilder();
+for (int i = 0; i < plaintext.length(); i++) {
+char encryptedChar = (char) ((plaintext.charAt(i) + key.charAt(i)) % 26 + 'A');
+ciphertextBuilder.append(encryptedChar);
+}
+return ciphertextBuilder.toString();
+}
+// Function to perform one-time pad decryption
+public static String decrypt(String ciphertext, String key) {
+if (ciphertext.length() != key.length()) {
+throw new IllegalArgumentException("Ciphertext and key must have the same length.");
+}
+StringBuilder decryptedBuilder = new StringBuilder();
+for (int i = 0; i < ciphertext.length(); i++) {
+char decryptedChar = (char) ((ciphertext.charAt(i) - key.charAt(i) + 26) % 26 + 'A');
+decryptedBuilder.append(decryptedChar);
+}
+return decryptedBuilder.toString();
+}
+public static void main(String[] args) {
+// Input string from user
+Scanner scan = new Scanner(System.in);
+String randomtext = scan.nextLine();
+String plaintext = randomtext.toUpperCase();
+String key = generateRandomKey(plaintext.length());
+System.out.println("Plaintext: " + plaintext);
+System.out.println("Key: " + key);
+String ciphertext = encrypt(plaintext, key);
+System.out.println("Ciphertext: " + ciphertext);
+String decryptedText = decrypt(ciphertext, key);
+System.out.println("Decrypted Text: " + decryptedText);
+}
+}
+Output:
+ 
+
+
+
+
+
+
+
+
+
+
+Assignment 6
+Aim:  Write a program to implement extended Euclidean Algorithm.
+Theory: 
+The Basic Euclidean algorithm is a way to find the greatest common divisor of two positive integers. GCD of two numbers is the largest number that divides both of them. A simple way to find GCD is to factorize both numbers and multiply common prime factors.
+36 = 2x2x3x3
+60 = 2x2x3x5
+Multiplication of common factors 
+GCD = 2x2x3 = 12
+Basic Euclidean Algorithm for GCD: 
+The algorithm is based on the below facts. 
+If we subtract a smaller number from a larger one (we reduce a larger number), GCD doesn’t change. So if we keep subtracting repeatedly the larger of two, we end up with GCD.
+Now instead of subtraction, if we divide the smaller number, the algorithm stops when we find the remainder 0.
+Below is a recursive function to evaluate gcd using Euclid’s algorithm:
+
+// Java program to demonstrate Basic Euclidean Algorithm
+ 
+import java.lang.*;
+import java.util.*;
+ 
+class GFG {
+    // extended Euclidean Algorithm
+    public static int gcd(int a, int b)
+    {
+        if (a == 0)
+            return b;
+ 
+        return gcd(b % a, a);
+    }
+ 
+    // Driver code
+    public static void main(String[] args)
+    {
+        int a = 10, b = 15, g;
+       
+          // Function call
+        g = gcd(a, b);
+        System.out.println("GCD(" + a + " , " + b
+                           + ") = " + g);
+ 
+        a = 35;
+        b = 10;
+        g = gcd(a, b);
+        System.out.println("GCD(" + a + " , " + b
+                           + ") = " + g);
+ 
+        a = 31;
+        b = 2;
+        g = gcd(a, b);
+        System.out.println("GCD(" + a + " , " + b
+                           + ") = " + g);
+    }
+}
+
+GCD (10, 15) = 5
+GCD (35, 10) = 5
+GCD (31, 2) = 1
+
+Now, Extended Euclidean algorithm also finds integer coefficients x and y such that: ax + by = GCD (a, b)
+ 
+Examples:  
+Input: a = 30, b = 20
+Output: GCD = 10, x = 1, y = -1
+(Note that 30*1 + 20*(-1) = 10)
+Input: a = 35, b = 15
+Output: GCD = 5, x = 1, y = -2
+(Note that 35*1 + 15*(-2) = 5) 
+
+The extended Euclidean algorithm updates the results of gcd(a, b) using the results calculated by the recursive call gcd(b%a, a). Let values of x and y calculated by the recursive call be x1 and y1. x and y are updated using the below expressions. 
+ax + by = gcd(a, b)
+gcd(a, b) = gcd(b%a, a)
+gcd(b%a, a) = (b%a)x1 + ay1
+ax + by = (b%a)x1 + ay1
+ax + by = (b – [b/a] * a)x1 + ay1
+ax + by = a(y1 – [b/a] * x1) + bx1
+Comparing LHS and RHS,
+x = y1 – ⌊b/a⌋ * x1
+ y = x1
+
+
+How is Extended Algorithm Useful? 
+The extended Euclidean algorithm is particularly useful when a and b are coprime (or gcd is 1). Since x is the modular multiplicative inverse of “a modulo b”, and y is the modular multiplicative inverse of “b modulo a”. In particular, the computation of the modular multiplicative inverse is an essential step in RSA public-key encryption method.
+
+
+Code:
+package practical;
+import java.util.Scanner;
+public class ExtendedEuclideanAlgorithm {
+// Function to perform the extended Euclidean algorithm
+public static int[] extendedEuclidean(int a, int b) {
+if (b == 0) {
+return new int[]{a, 1, 0};
+}
+int[] values = extendedEuclidean(b, a % b);
+int gcd = values[0];
+int s = values[2];
+int t = values[1] - (a / b) * values[2];
+return new int[]{gcd, s, t};
+}
+public static void main(String[] args) {
+Scanner scanner = new Scanner(System.in);
+System.out.println("Extended Euclidean Algorithm");
+System.out.print("Enter the first number (a): ");
+int a = scanner.nextInt();
+System.out.print("Enter the second number (b): ");
+int b = scanner.nextInt();
+scanner.close();
+int[] values = extendedEuclidean(a, b);
+int gcd = values[0];
+int s = values[1];
+int t = values[2];
+System.out.println("GCD of " + a + " and " + b + " is: " + gcd);
+System.out.println("Coefficients (s and t) for Bezout's identity:");
+System.out.println("s: " + s + ", t: " + t);
+System.out.println("Bezout's identity equation: " + a + " * " + s + " + " + b + " * " + t + " = " + gcd);
+}
+}
+
+
+Output:
+ 
+
+
+
+
+
+
+
+
+
+
+
+Assignment 7
+AIM: Write a program to Develop a Secure System by Applying RSA Cryptography Algorithms.
+Theory: 
+RSA encryption algorithm is a type of public-key encryption algorithm. The Public key is used for encryption, and the Private Key is used for decryption. RSA is the most common public-key algorithm, named after its inventors Rivest, Shamir, and Adelman (RSA).
+ 
+RSA algorithm uses the following procedure to generate public and private keys:
+⦁	Select two large prime numbers, p and q.
+⦁	Multiply these numbers to find n = p x q, where n is called the modulus for encryption and decryption.
+⦁	Choose a number e less than n, such that n is relatively prime to (p - 1) x (q -1). It means that e and (p - 1) x (q - 1) have no common factor except 1. Choose "e" such that 1<e < φ (n), e is prime to φ (n),
+gcd (e,d(n)) =1
+⦁	If n = p x q, then the public key is <e, n>. A plaintext message m is encrypted using public key <e, n>. To find ciphertext from the plain text following formula is used to get ciphertext C.
+C=me modn
+Here, m must be less than n. A larger message (>n) is treated as a concatenation of messages, each of which is encrypted separately.
+⦁	To determine the private key, we use the following formula to calculate the d such that:
+De mod{(p-1)x(q-1)}=1
+Or
+De mod φ (n) = 1
+⦁	The private key is <d, n>. A ciphertext message c is decrypted using private key <d, n>. To calculate plain text m from the ciphertext c following formula is used to get plain text m.
+m = cd mod n
+
+⦁	Let us learn the mechanism behind the RSA algorithm : 
+
+>> Generating Public Key: 
+⦁	Select two prime no's. Suppose P = 53 and Q = 59.
+
+⦁	Now First part of the Public key  : n = P*Q = 3127.
+
+⦁	 We also need a small exponent say e : 
+
+⦁	But e Must be An integer.
+
+⦁	Not be a factor of Φ(n). 
+
+⦁	1 < e < ⦁	Φ(n) [Φ(n) is discussed below], 
+
+⦁	Let us now consider it to be equal to 3.
+
+⦁	    Our Public Key is made of n and e
+>> Generating Private Key: 
+⦁	We need to calculate Φ(n) :
+
+⦁	Such that Φ(n) = (P-1)(Q-1)     
+
+⦁	      so,  Φ(n) = 3016
+
+⦁	    Now calculate Private Key, d : 
+
+⦁	d = (k*Φ(n) + 1) / e for some integer k
+
+⦁	For k = 2, value of d is 2011.
+⦁	Now we are ready with our – Public Key ( n = 3127 and e = 3) and Private Key(d = 2011) Now we will encrypt “HI”:
+⦁	Convert letters to numbers : H  = 8 and I = 9
+
+⦁	    Thus Encrypted Data c = (89e)mod n 
+
+⦁	Thus our Encrypted Data comes out to be 1394
+
+⦁	Now we will decrypt 1394 : 
+
+⦁	    Decrypted Data = (cd)mod n
+
+⦁	Thus our Encrypted Data comes out to be 89
+
+⦁	8 = H and I = 9 i.e. "HI".
+
+Code: 
+import java.io.*; 
+import java.math.*; 
+class rsa 
+{ 
+public static void main(String args[])throws IOException 
+{ 
+int q,p,n,pn,publickey=0,d=0,msg; 
+double cipher,ptext; 
+int check,check1; 
+DataInputStream in=new DataInputStream(System.in); 
+System.out.println(“ENTER NO”); 
+p=Integer.parseInt(in.readLine()); 
+q=Integer.parseInt(in.readLine()); 
+check=prime(p); 
+check1=prime(q); 
+if(check!=1||check1!=1) 
+{ 
+System.exit(0); 
+} 
+n=p*q; 
+pn=(p-1)*(q-1); 
+for(int e=2;e<pn;e++) 
+{ 
+if(gcd(e,pn)==1) 
+{ 
+publickey=e; 
+System.out.println(“PUBLIC KEY :”+e); 
+break; 
+} 
+} 
+for(int i=0;i<pn;i++) 
+{ 
+d=i; 
+if(((d*publickey)%pn)==1) 
+break; 
+} 
+System.out.println(“PRIVATE KEY :”+d); 
+System.out.println(“ENTER MESSAGE “); 
+msg=Integer.parseInt(in.readLine()); 
+cipher=Math.pow(msg,publickey); 
+cipher=cipher%n; 
+System.out.println(“ENCRYPTED :”+cipher); 
+ptext=Math.pow(cipher,d); 
+ptext=ptext%n; 
+System.out.println(“DECRYPTED :”+ptext); 
+} 
+static int prime(int a) 
+{ 
+int flag=0; 
+for(int i=2;i<a;i++) 
+{ 
+if(a%i==0) 
+{ 
+System.out.println(a+” is not a Prime Number”); 
+flag = 1; 
+return 0; 
+} 
+} 
+if(flag==0) 
+return 1; 
+return 1; 
+} 
+static int gcd(int number1, int number2) 
+{ 
+if(number2 == 
+0){ return 
+number1; 
+} 
+return gcd(number2, number1%number2); 
+} 
+} 
+Output: 
+ENTER NO 
+3 
+11 
+PUBLIC KEY :3 
+PRIVATE KEY :7 
+ENTER MESSAGE 
+20 
+ENCRYPTED :14.0 
+DECRYPTED :20.0
+
+Assignment 8
+Aim: Implement Digital signature algorithm in Java
+Theory: 
+ A digital signature is a mathematical technique used to validate the authenticity and integrity of a message, software, or digital document. 
+A Digital Signature aids in:- 
+Authentication-Authentication is any process by which a system verifies the identity of a user who wishes to access it. 
+
+Non- repudiation– Non-repudiation means to ensure that a transferred message has been sent and received by the parties claiming to have sent and received the message. Non-repudiation is a way to guarantee that the sender of a message cannot later deny having sent the message and that the recipient cannot deny having received the message. 
+
+Integrity– to ensure that the message was not altered during the transmission
+
+Signing Algorithms: 
+To create a digital signature, signing algorithms like email programs create a one-way hash of the electronic data which is to be signed. The signing algorithm then encrypts the hash value using the private key (signature key). 
+This encrypted hash along with other information like the hashing algorithm is the digital signature. This digital signature is appended with the data and sent to the verifier.
+Benefits of Digital Signatures
+⦁	Legal documents and contracts: Digital signatures are legally binding. This makes them ideal for any legal document that requires a signature authenticated by one or more parties and guarantees that the record has not been altered.
+⦁	Sales contracts: Digital signing of contracts and sales contracts authenticates the identity of the seller and the buyer, and both parties can be sure that the signatures are legally binding and that the terms of the agreement have not been changed.
+⦁	Financial Documents: Finance departments digitally sign invoices so customers can trust that the payment request is from the right seller, not from a bad actor trying to trick the buyer into sending payments to a fraudulent account.
+
+
+Drawbacks of Digital Signatures
+⦁	Dependence on Key Management: Digital signatures rely on the secure management of cryptographic keys. This means that the sender must keep their private key safe and secure from unauthorized access, while the recipient must verify the sender’s public key to ensure its authenticity. Any failure in key management can compromise the security of the digital signature.
+⦁	Complexity: Digital signatures require a complex process of key generation, signing, and verification. This can make them difficult to implement and use for non-technical users.
+⦁	Compatibility: Different digital signature algorithms and formats may not be compatible with each other, making it difficult to exchange signed messages across different systems and applications.
+⦁	Legal Recognition: Although digital signatures have legal recognition in many countries, their legal status may not be clear in all jurisdictions. This can limit their usefulness in legal or regulatory contexts.
+⦁	Revocation: In case of key compromise or other security issues, digital signatures must be revoked to prevent their misuse. However, the revocation process can be complex and may not be effective in all cases.
+⦁	Cost: Digital signatures may involve additional costs for key management, certificate issuance, and other related services, which can make them expensive for some users or organizations.
+⦁	Limited Scope: Digital signatures provide authentication and integrity protection for a message, but they do not provide confidentiality or protection against other types of attacks, such as denial-of-service attacks or malware.
+
+ 
+
+
+Code:
+package practical;
+import java.security.*;
+import java.util.Base64;
+public class DigitalSignature {
+public static void main(String[] args) throws Exception {
+// Generate a key pair
+KeyPairGenerator = KeyPairGenerator.getInstance("RSA");
+keyPairGenerator.initialize(2048);
+KeyPair = keyPairGenerator.generateKeyPair();
+// Get the private key
+PrivateKey = keyPair.getPrivate();
+// Get the message to be signed
+String message = "This is a message to be signed.";
+// Create a signature object
+Signature = Signature.getInstance("SHA256withRSA");
+// Initialize the signature object with the private key
+signature.initSign(privateKey);
+// Add the message to the signature object
+signature.update(message.getBytes());
+// Calculate the signature
+byte[] signatureBytes = signature.sign();
+// Save the signature
+String signatureString = Base64.getEncoder().encodeToString(signatureBytes);
+System.out.println("Signature: " + signatureString);
+// Verify the signature
+Signature verificationSignature = Signature.getInstance("SHA256withRSA");
+// Initialize the verification signature object with the public key
+verificationSignature.initVerify(keyPair.getPublic());
+// Add the message to the verification signature object
+verificationSignature.update(message.getBytes());
+// Verify the signature
+boolean isVerified = verificationSignature.verify(signatureBytes);
+System.out.println("Signature verified: " + isVerified);
+}
+}
+
+Output:
+ 
